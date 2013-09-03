@@ -1,0 +1,27 @@
+<h1>Listing searchres</h1>
+
+<table>
+  <tr>
+    <th>Query</th>
+    <th>Url</th>
+    <th>Keyword</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @searchres.each do |searchre| %>
+  <tr>
+    <td><%= searchre.query %></td>
+    <td><%= searchre.url %></td>
+    <td><%= searchre.keyword %></td>
+    <td><%= link_to 'Show', searchre %></td>
+    <td><%= link_to 'Edit', edit_searchre_path(searchre) %></td>
+    <td><%= link_to 'Destroy', searchre, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Searchre', new_searchre_path %>

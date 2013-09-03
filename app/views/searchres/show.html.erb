@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Query:</b>
+  <%= @searchre.query %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @searchre.url %>
+</p>
+
+<p>
+  <b>Keyword:</b>
+  <%= @searchre.keyword %>
+</p>
+
+
+<%= link_to 'Edit', edit_searchre_path(@searchre) %> |
+<%= link_to 'Back', searchres_path %>

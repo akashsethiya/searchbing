@@ -1,0 +1,9 @@
+<h1> HEllo !</h1>
+
+<%= form_tag :controller => 'welcome' ,:action => 'search' do %>
+<%= label_tag("Search for:") %>
+  <%= text_field_tag(:qu) %>
+<%= label_tag("Keyword:") %>
+  <%= text_field_tag(:k) %>
+  <%= submit_tag("Search") %>
+ <% end %>
