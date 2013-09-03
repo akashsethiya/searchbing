@@ -9,7 +9,6 @@ class WelcomeController < ApplicationController
 	  end
 
 	def search
-		require 'rbing'
 		
 		@a = params[:qu]
 	  	@key = params[:k]
@@ -17,15 +16,11 @@ class WelcomeController < ApplicationController
 	  	if params[:k].empty?
 			@key=params[:qu]
 		end
-		#	response = RubyWebSearch::Google.search(:query => @a ,:size => 10)
-		#	@abc = response.results
-		bing = RBing.new("a4512de273e6482c8574b5389cb14a5c")
-		rsp = bing.web(@a)
-		@content = rsp.results[0].title
-
-		#	@abc.each do |aq|
-		#		page = MetaInspector.new(aq[:url])
-		#		@content = page.document
+		response = RubyWebSearch::Google.search(:query => @a ,:size => 10)
+			@abc = response.results
+			@abc.each do |aq|
+				page = MetaInspector.new(aq[:url])
+				@content = page.document
 		#		doc = Pismo::Document.new(@abc[1][:url])
 		#		@content= doc.html_body
 		#		if @cont.empty?
@@ -33,11 +28,29 @@ class WelcomeController < ApplicationController
 		#		else 
 		#			@content=doc.keywords[0][0]
 		#		end
-		#		end
-		#	end
-		#	searchqu = Searchre.where( query: @a.downcase ,keyword: @key.downcase)
-	  	#	@awe = searchqu
-		#end
+				if params[:k].empty?
+					@res = Searchre.new
+					@res.query = @a.downcase
+					@res.title = aq[:title]
+					@res.url = aq[:url]
+					@res.keyword = @key.downcase
+					@res.save
+					@resultstry="true"
+				elsif @content.include?(@key.downcase)
+					@res = Searchre.new
+					@res.query = @a.downcase
+					@res.title = aq[:title]
+					@res.url = aq[:url]
+					@res.keyword = @key.downcase
+					@res.save
+					@resultstry="true"
+				else 
+					@resultstry="false"
+				end
+			end
+			searchqu = Searchre.where( query: @a.downcase ,keyword: @key.downcase)
+	  		@awe = searchqu
+		end
 		
 	end
 end
