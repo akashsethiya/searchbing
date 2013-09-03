@@ -9,13 +9,29 @@ class WelcomeController < ApplicationController
 	  end
 
 	def search
-		
+		require 'gnib'
 		@a = params[:qu]
 	  	@key = params[:k]
 
 	  	if params[:k].empty?
 			@key=params[:qu]
 		end
+
+
+		# Gnib.config.application_id = 'UKP2/eXbBA1cpow12FqFYDYn9W0V4+dy+pOkwMJBnT4'
+		# @contents = Gnib::Search.get('google', :sources => [:web])
+
+ #	ser=Searchre.where(query: @a.downcase).destroy
+	  	searchqu = Searchre.where( query: @a.downcase ,keyword: @key.downcase)
+	  	@us= searchqu.exists?
+
+
+	  #	searchqu1 = Searchre.where(query: @a.downcase)
+	  #	@us1 = searchqu1.exists?
+
+		if(@us)
+	  		@awe = searchqu
+	   	else
 		response = RubyWebSearch::Google.search(:query => @a ,:size => 10)
 			@abc = response.results
 			@abc.each do |aq|

@@ -4,5 +4,12 @@
 <br/>
 <%= @content %>
 <br/>
+<% @awe.each do |q|%>
+<%= q[:title]%>
+<br/>
+<%= link_to q[:url],q[:url]%>
+<br/>
+<br/>
+<% end %>
 <br/><br/>
 
