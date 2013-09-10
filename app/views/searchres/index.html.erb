@@ -4,6 +4,7 @@
   <tr>
     <th>Query</th>
     <th>Url</th>
+    <th>Title</th>
     <th>Keyword</th>
     <th></th>
     <th></th>
@@ -13,6 +14,7 @@
 <% @searchres.each do |searchre| %>
   <tr>
     <td><%= searchre.query %></td>
+    <td><%= searchre.title %></td>
     <td><%= searchre.url %></td>
     <td><%= searchre.keyword %></td>
     <td><%= link_to 'Show', searchre %></td>

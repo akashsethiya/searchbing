@@ -5,7 +5,7 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'sqlite3'
+gem 'sqlite3'
 
 gem 'pg'
 
@@ -29,11 +29,11 @@ gem 'edavis10-ruby-web-search'
 
 gem 'pismo'
 
-gem 'rbing'
+gem 'RuBing'
 
-gem 'binged'
+gem 'curl'
 
-gem 'searchbing'
+gem 'mechanize'
 
 gem 'mongoid'
 gem 'mongo'

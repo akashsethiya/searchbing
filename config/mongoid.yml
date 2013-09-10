@@ -10,8 +10,6 @@ development:
       # of host:port pairs. (required)
       hosts:
         - localhost:27017
-
-       
       options:
         # Change whether the session persists in safe mode by default.
         # (default: false)
