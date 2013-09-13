@@ -25,12 +25,11 @@ end
 
 gem 'jquery-rails'
 
-gem 'edavis10-ruby-web-search'
+gem 'omniauth'
 
 gem 'pismo'
 
-gem 'RuBing'
-
+gem 'twitter' , :git => 'https://github.com/sferik/twitter.git'
 gem 'curl'
 
 gem 'mechanize'

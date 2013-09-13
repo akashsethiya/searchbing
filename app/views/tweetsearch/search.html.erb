@@ -1,0 +1,7 @@
+<h1>Tweetsearch#search</h1>
+<p>Find me in app/views/tweetsearch/search.html.erb</p>
+<%= form_tag :controller => 'tweetsearch' ,:action => 'tweet' do %>
+<%= label_tag("Search for:") %>
+  <%= text_field_tag(:searchq) %>
+  <%= submit_tag("Search") %>
+  <% end %>

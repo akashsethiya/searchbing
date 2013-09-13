@@ -1,9 +1,7 @@
-<h1>Search !</h1>
+<h1>Reload Results</h1>
 <%= label_tag("Search for:") %>
-<%= label_tag(@a) %>
-<%= button_to 'Reload Results', :controller => 'welcome',:action => 'reload', :q=> @a , :key => @key , :keyenter => @keyenter %>
+<%= params[:q]%>
 <%= button_to 'Home', :controller => 'welcome',:action => 'hello'%>
-<br/>
 <br/>
 <br/>
 <% @finalresult.each do |q|%>

@@ -1,12 +1,16 @@
 Try::Application.routes.draw do
 
 
+  get "tweetsearch/search"
+  post "tweetsearch/tweet"
   resources :searchres
 
 
   get "welcome/enter"
+  post "welcome/reload"
 
   get "welcome/hello"
+ post "welcome/hello"
 
   post "welcome/search"
 
