@@ -9,7 +9,8 @@ class WelcomeController < ApplicationController
 
 	def search
 		require 'mechanize'
-
+		#require 'fbgraph'
+		
 		@a = params[:qu]
 	  	@key = params[:k]
 	  	@keyenter = params[:k]
@@ -17,8 +18,11 @@ class WelcomeController < ApplicationController
 	  	if params[:k].empty?
 			@key=params[:qu]
 		end
-		
 
+		#client = FBGraph::Client.new(:client_id => '684933954868914',:secret_id =>'f04a78f08d896f642455d70483c6332f')
+		#user = FBGraph::User.fetch('akash')
+		#user = client.search.query('hrithik')
+		#@fb=user
 	#	ser=Searchre.where(Keyword: "akash".downcase).destroy
 	 	
 	  	searchqu = Searchre.where( query: @a.downcase ,keyword: @key.downcase)
@@ -74,6 +78,9 @@ class WelcomeController < ApplicationController
 	   		@finalresult = searchqu
 		end
 		
+		@tweet = searchtweet(@a)
+		user = searchuser(@a)
+		@disp = user
 	end
 
 	def reload
@@ -85,6 +92,9 @@ class WelcomeController < ApplicationController
 		check(@result,@keyenter,@searchq,@key)
 		searchqu = Searchre.where( query: @searchq.downcase ,keyword: @key.downcase)
 	   	@finalresult = searchqu
+	   	@tweet = searchtweet(@searchq)
+		user = searchuser(@searchq)
+		@disp = user
 	end
 
 end

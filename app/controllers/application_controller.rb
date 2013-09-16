@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
 		uri = URI(full_address)
 		req = Net::HTTP::Get.new(uri.request_uri)
 		req.basic_auth user, acctKey
-		res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https'){|http|
+		res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https' ){|http|
+			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 			http.request(req)
 		}
 		body = JSON.parse(res.body)
@@ -23,8 +24,12 @@ class ApplicationController < ActionController::Base
   		agent = Mechanize.new 
 		contents.each do |con|
 			doc = agent.get(con['Url']) 
+			#if doc.code.to_i == 403
+			#	continue
+			#end
 			web_title = agent.page.title 
 			html = agent.page.content 
+			
 			if keyenter.empty?
 				@res = Searchre.new
 				@res.query = searchq.downcase
@@ -41,5 +46,33 @@ class ApplicationController < ActionController::Base
 		 		@res.save
 		 	end
 		end
+  	end
+
+  	def configtwitter()
+
+  		consumer_key = "IAU0m2vQ5FkwvcfAQXlLw"
+  		consumer_secret = "N9qZfmlHRB2NALKEUY7ZgNfu0JvL7rzmBs3oqEDE"
+  		access_token = "1853474826-yjAh5X2ArUGGaROffvJjWWIorxStgyGBAYC4d6n"
+  		access_token_secret = "6eSU7UIsFM7qpptixOSMXU7fkLyiAzbzH5us9arBCWo"
+		client = Twitter::REST::Client.new
+		client.consumer_key        = consumer_key
+		client.consumer_secret     = consumer_secret
+		client.access_token        = access_token
+		client.access_token_secret = access_token_secret
+		return client
+
+  	end
+
+  	def searchtweet(searchq)
+  	  	@fname = searchq.partition(" ")[0]
+		client = configtwitter()
+		tweet = client.search(@fname)
+		return tweet
+	end
+
+	def searchuser(searchq)
+		client = configtwitter()
+		user = client.user_search(searchq)
+		return user
   	end
 end

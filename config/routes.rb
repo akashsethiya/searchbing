@@ -10,6 +10,8 @@ Try::Application.routes.draw do
   post "welcome/reload"
 
   get "welcome/hello"
+
+
  post "welcome/hello"
 
   post "welcome/search"

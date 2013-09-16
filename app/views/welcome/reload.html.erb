@@ -11,3 +11,25 @@
 <br/>
 <br/>
 <% end %>
+
+<h2>Tweets</h2>
+<% @tweet.each do |t| %>
+<br/>
+<%= link_to t.user.name,"https://www.twitter.com/#{t.user.screen_name}"%>
+<br/>
+
+<%=  t.user.screen_name %>
+<br/>
+<%=  t.text %>
+<br/>
+<br/>
+<% end%>
+<br/><br/>
+<h2>Users</h2>
+<% @disp.each do |a|%>
+<%= a.name%>
+<br/>
+<%= link_to a[:screen_name],"https://www.twitter.com/#{a[:screen_name]}"%>
+<br/>
+<br/>
+<%end%>
