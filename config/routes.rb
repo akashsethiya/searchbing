@@ -1,12 +1,11 @@
 Try::Application.routes.draw do
 
 
-  get "tweetsearch/search"
-  post "tweetsearch/tweet"
+  
   resources :searchres
 
 
-  get "welcome/enter"
+ 
   post "welcome/reload"
 
   get "welcome/hello"
@@ -15,8 +14,6 @@ Try::Application.routes.draw do
  post "welcome/hello"
 
   post "welcome/search"
-
-  post "tyr/firs"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -67,7 +64,7 @@ Try::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+   root :to => "welcome#hello"
 
   # See how all your routes lay out with "rake routes"
 

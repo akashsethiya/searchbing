@@ -49,7 +49,6 @@ class ApplicationController < ActionController::Base
   	end
 
   	def configtwitter()
-
   		consumer_key = "IAU0m2vQ5FkwvcfAQXlLw"
   		consumer_secret = "N9qZfmlHRB2NALKEUY7ZgNfu0JvL7rzmBs3oqEDE"
   		access_token = "1853474826-yjAh5X2ArUGGaROffvJjWWIorxStgyGBAYC4d6n"
