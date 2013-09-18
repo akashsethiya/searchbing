@@ -14,6 +14,10 @@ class WelcomeController < ApplicationController
 		@a = params[:qu]
 	  	@key = params[:k]
 	  	@keyenter = params[:k]
+	  	 if @a.empty?
+	  	 	flash[:notice] = "You have successfully logged out."
+   			render action: 'hello'
+	  	 end
 
 	  	if params[:k].empty?
 			@key=params[:qu]
