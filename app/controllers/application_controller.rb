@@ -23,15 +23,9 @@ class ApplicationController < ActionController::Base
   	def check(contents,keyenter,searchq,key)
   		agent = Mechanize.new 
 		contents.each do |con|
-			
 			html = open(con['Url']).read
 			@pa =  html
-
-
 			# doc = agent.get(con['Url']) 
-			# #if doc.code.to_i == 403
-			# #	continue
-			# #end
 			# web_title = agent.page.title 
 			# html = agent.page.content 
 	  		@words = @keyenter.split

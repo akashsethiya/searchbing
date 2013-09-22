@@ -4,14 +4,13 @@ class WelcomeController < ApplicationController
 	end
 
 	def hello
-	# searchqu1 = Searchre.where(query: "akash sethiya").destroy
+#	 searchqu1 = Searchre.where(query: "akash sethiya").destroy
+
 	end
 
 
 	def search
-		require 'mechanize'
-		#require 'fbgraph'
-		
+	
 		@a = params[:qu]
 	  	@key = params[:k]
 	  	@keyenter = params[:k]
@@ -21,7 +20,7 @@ class WelcomeController < ApplicationController
 	  	end
 		@us = find(@keyenter,@a,@key)
 		if(@us.exists?)
-	  		@finalresult = @us
+	  		@finalresult = @us.distinct(:url)
 	 	else
 			# acctKey = "UKP2/eXbBA1cpow12FqFYDYn9W0V4+dy+pOkwMJBnT4"
 			# user = ''
@@ -41,32 +40,9 @@ class WelcomeController < ApplicationController
 			# body = JSON.parse(res.body)
 			# result_set = body['d']['results']
 			@contents = searchbing(@a)
-
 			check(@contents,@keyenter,@a,@key)
-	 	# 	agent = Mechanize.new # creates the mechanize object
-			# @contents.each do |con|
-			# 	doc = agent.get(con['Url']) 
-			# 	web_title = agent.page.title 
-			# 	html = agent.page.content 
-	
-		 # 		if params[:k].empty?
-		 # 			@res = Searchre.new
-		 # 			@res.query = @a.downcase
-		 # 			@res.title = con['Title']
-		 # 			@res.url = con['Url']
-		 # 			@res.keyword = @key.downcase
-		 # 			@res.save
-		 # 		elsif html.include?(@key.downcase)
-		 # 			@res = Searchre.new
-		 # 			@res.query = @a.downcase
-		 # 			@res.title = con['Title']
-		 # 			@res.url = con['Url']
-		 # 			@res.keyword = @key.downcase
-		 # 			@res.save
-		 # 		end
-		 # 	end
 		 	searchqu = find(@keyenter,@a,@key)
-	   		@finalresult = searchqu
+	   		@finalresult = searchqu.distinct(:url)
 		end
 
 		# uri = URI("http://en.wikipedia.org/wiki/George_clooney")
@@ -85,12 +61,13 @@ class WelcomeController < ApplicationController
 		@searchq = params[:q]
 		@key = params[:key]
 		@keyenter = params[:keyenter]
-		ser=find(@keyenter,@searchq,@key).destroy
-		@result = searchbing(@searchq)
+		searchqu = find(@keyenter,@searchq,@key)
+	  	searchqu.destroy
+	  	@result = searchbing(@searchq)
 		check(@result,@keyenter,@searchq,@key)
 		searchqu = find(@keyenter,@searchq,@key)
 	#	searchqu = Searchre.where( query: @searchq.downcase ,keyword: @key.downcase)
-	   	@finalresult = searchqu
+	   	@finalresult = searchqu.distinct(:url)
 	   	@tweet = searchtweet(@searchq)
 		user = searchuser(@searchq)
 		@disp = user

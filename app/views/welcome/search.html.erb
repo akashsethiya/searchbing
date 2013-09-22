@@ -8,9 +8,9 @@
 <br/>
 <br/>
 <% @finalresult.each do |q|%>
-<%= q[:title]%>
+<%= Searchre.find_by(:url => q).title%>
 <br/>
-<%= link_to q[:url],q[:url]%>
+<%= link_to q,q%>
 <br/>
 <br/>
 <% end %>
