@@ -23,13 +23,18 @@ class ApplicationController < ActionController::Base
   	def check(contents,keyenter,searchq,key)
   		agent = Mechanize.new 
 		contents.each do |con|
-			doc = agent.get(con['Url']) 
-			#if doc.code.to_i == 403
-			#	continue
-			#end
-			web_title = agent.page.title 
-			html = agent.page.content 
 			
+			html = open(con['Url']).read
+			@pa =  html
+
+
+			# doc = agent.get(con['Url']) 
+			# #if doc.code.to_i == 403
+			# #	continue
+			# #end
+			# web_title = agent.page.title 
+			# html = agent.page.content 
+	  		@words = @keyenter.split
 			if keyenter.empty?
 				@res = Searchre.new
 				@res.query = searchq.downcase
@@ -37,13 +42,17 @@ class ApplicationController < ActionController::Base
 				@res.url = con['Url']
 				@res.keyword = key.downcase
 		 		@res.save
-		 	elsif html.include?(key.downcase)
-		 		@res = Searchre.new
-		 		@res.query = searchq.downcase
-		 		@res.title = con['Title']
-		 		@res.url = con['Url']
-		 		@res.keyword = key.downcase
-		 		@res.save
+		 	else
+		 		@words.each do |keyword|
+		 			if html.downcase.include?(keyword.downcase)
+		 				@res = Searchre.new
+		 				@res.query = searchq.downcase
+		 				@res.title = con['Title']
+		 				@res.url = con['Url']
+		 				@res.keyword = keyword.downcase
+		 				@res.save
+		 			end
+		 		end
 		 	end
 		end
   	end

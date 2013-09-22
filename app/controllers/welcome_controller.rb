@@ -4,8 +4,9 @@ class WelcomeController < ApplicationController
 	end
 
 	def hello
-	  	
+	 #searchqu1 = Searchre.where(query: "akash sethiya").destroy
 	end
+
 
 	def search
 		require 'mechanize'
@@ -14,28 +15,19 @@ class WelcomeController < ApplicationController
 		@a = params[:qu]
 	  	@key = params[:k]
 	  	@keyenter = params[:k]
-	  	 if @a.empty?
-	  	 	flash[:notice] = "You have successfully logged out."
-   			render action: 'hello'
-	  	 end
-
+	  	@words = @keyenter.downcase.split
 	  	if params[:k].empty?
 			@key=params[:qu]
 		end
-
-		#client = FBGraph::Client.new(:client_id => '684933954868914',:secret_id =>'f04a78f08d896f642455d70483c6332f')
-		#user = FBGraph::User.fetch('akash')
-		#user = client.search.query('hrithik')
-		#@fb=user
-	#	ser=Searchre.where(Keyword: "akash".downcase).destroy
 	 	
-	  	searchqu = Searchre.where( query: @a.downcase ,keyword: @key.downcase)
+	  	searchqu = Searchre.where(query: @a.downcase).in(keyword: @words)
 	  	@us= searchqu.exists?
 	#	searchqu1 = Searchre.where(query: @a.downcase)
 	#	@us1 = searchqu1.exists?
 		if(@us)
 	  		@finalresult = searchqu
-	 	else
+	
+ 	else
 			# acctKey = "UKP2/eXbBA1cpow12FqFYDYn9W0V4+dy+pOkwMJBnT4"
 			# user = ''
 			# web_search_url = "https://api.datamarket.azure.com/Bing/Search/v1/Web?$format=json&Query="
@@ -78,10 +70,22 @@ class WelcomeController < ApplicationController
 		 # 			@res.save
 		 # 		end
 		 # 	end
-		 	searchqu = Searchre.where( query: @a.downcase ,keyword: @key.downcase)
+		 	searchqu = Searchre.where( query: @a.downcase).in(keyword: @words)
 	   		@finalresult = searchqu
+	   		
+	   		
+
 		end
-		
+
+		# uri = URI("http://en.wikipedia.org/wiki/George_clooney")
+		# req = Net::HTTP::Get.new(uri.request_uri)
+		# req.basic_auth '',''
+		# res = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https'){|http|
+  # 	 		http.request(req)
+		# }
+		# @bo = JSON.parse(res.body)
+
+
 		@tweet = searchtweet(@a)
 		user = searchuser(@a)
 		@disp = user
