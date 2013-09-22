@@ -83,4 +83,15 @@ class ApplicationController < ActionController::Base
 		user = client.user_search(searchq)
 		return user
   	end
+
+
+  	def find(keyenter,searchquery,key)
+  		if keyenter.empty?
+			searchqu = Searchre.where(query: searchquery.downcase,keyword: key.downcase)
+		else
+	  		@words = keyenter.downcase.split
+	  		searchqu = Searchre.where(query: searchquery.downcase).in(keyword: @words)
+	  	end
+	  	return searchqu
+  	end
 end

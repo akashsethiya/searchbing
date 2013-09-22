@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 	end
 
 	def hello
-	 #searchqu1 = Searchre.where(query: "akash sethiya").destroy
+	# searchqu1 = Searchre.where(query: "akash sethiya").destroy
 	end
 
 
@@ -18,16 +18,11 @@ class WelcomeController < ApplicationController
 	  	@words = @keyenter.downcase.split
 	  	if params[:k].empty?
 			@key=params[:qu]
-		end
-	 	
-	  	searchqu = Searchre.where(query: @a.downcase).in(keyword: @words)
-	  	@us= searchqu.exists?
-	#	searchqu1 = Searchre.where(query: @a.downcase)
-	#	@us1 = searchqu1.exists?
-		if(@us)
-	  		@finalresult = searchqu
-	
- 	else
+	  	end
+		@us = find(@keyenter,@a,@key)
+		if(@us.exists?)
+	  		@finalresult = @us
+	 	else
 			# acctKey = "UKP2/eXbBA1cpow12FqFYDYn9W0V4+dy+pOkwMJBnT4"
 			# user = ''
 			# web_search_url = "https://api.datamarket.azure.com/Bing/Search/v1/Web?$format=json&Query="
@@ -70,11 +65,8 @@ class WelcomeController < ApplicationController
 		 # 			@res.save
 		 # 		end
 		 # 	end
-		 	searchqu = Searchre.where( query: @a.downcase).in(keyword: @words)
+		 	searchqu = find(@keyenter,@a,@key)
 	   		@finalresult = searchqu
-	   		
-	   		
-
 		end
 
 		# uri = URI("http://en.wikipedia.org/wiki/George_clooney")
@@ -84,8 +76,6 @@ class WelcomeController < ApplicationController
   # 	 		http.request(req)
 		# }
 		# @bo = JSON.parse(res.body)
-
-
 		@tweet = searchtweet(@a)
 		user = searchuser(@a)
 		@disp = user
@@ -95,10 +85,11 @@ class WelcomeController < ApplicationController
 		@searchq = params[:q]
 		@key = params[:key]
 		@keyenter = params[:keyenter]
-		ser=Searchre.where(query: @searchq.downcase).destroy
+		ser=find(@keyenter,@searchq,@key).destroy
 		@result = searchbing(@searchq)
 		check(@result,@keyenter,@searchq,@key)
-		searchqu = Searchre.where( query: @searchq.downcase ,keyword: @key.downcase)
+		searchqu = find(@keyenter,@searchq,@key)
+	#	searchqu = Searchre.where( query: @searchq.downcase ,keyword: @key.downcase)
 	   	@finalresult = searchqu
 	   	@tweet = searchtweet(@searchq)
 		user = searchuser(@searchq)
