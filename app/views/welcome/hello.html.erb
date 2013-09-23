@@ -4,6 +4,7 @@
 <br/>
 <br/>
 <br/>
+<center><%= button_to 'Spouse Search', :controller => 'welcome',:action => 'searchwife'%></center>
 <%= form_tag :controller => 'welcome' ,:action => 'search' do %>
 <center><table>
 <tr>
@@ -24,3 +25,4 @@
  <th colspan = '2'><center><%= submit_tag("Search") %></th></center>
 </tr>
 </table></center> <% end %>
+<%= @t %>

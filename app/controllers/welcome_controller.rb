@@ -5,12 +5,14 @@ class WelcomeController < ApplicationController
 
 	def hello
 #	 searchqu1 = Searchre.where(query: "akash sethiya").destroy
+		
+	end
 
+	def searchwife
 	end
 
 
 	def search
-	
 		@a = params[:qu]
 	  	@key = params[:k]
 	  	@keyenter = params[:k]
@@ -73,4 +75,16 @@ class WelcomeController < ApplicationController
 		@disp = user
 	end
 
+	def swife
+		@name = params[:name]
+		@searchterm = "wikipedia " + @name
+		link = searchbing(@searchterm)
+		page = Nokogiri::HTML(open(link[0]['Url']))
+		page.css('table tr').each do |a|
+			if(a.text.include?"Spouse(s)")
+				@t = a.text.split(")")[1].split("(")[0]
+				break
+			end
+		end	
+	end 
 end

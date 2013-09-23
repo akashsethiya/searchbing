@@ -1,0 +1,21 @@
+<h1><center> <font size = '100px'>Search</font></center></h1>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<%= form_tag :controller => 'welcome' ,:action => 'swife' do %>
+<center><table>
+<tr>
+<th><%= label_tag("Enter Name:") %></th>
+<td><%= text_field_tag(:name) %></td>
+<br/>
+</tr>
+<tr>
+<th colspan = '2'><center><%= submit_tag("Search") %></th></center>
+</tr><% end %>
+<tr>
+<th colspan = '2'>
+<center><%= button_to 'Home', :controller => 'welcome',:action => 'hello'%>
+</center></th></tr>
+</table></center> 
